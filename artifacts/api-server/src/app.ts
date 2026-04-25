@@ -23,6 +23,11 @@ app.use(cors());
 app.use(express.json({ limit: "25mb" }));
 app.use(express.urlencoded({ extended: true, limit: "25mb" }));
 
+// ✅ 健康检查端点，供 Render 使用
+app.get("/api/health", (_req, res) => {
+  res.status(200).send("OK");
+});
+
 app.use("/api", router);
 
 export default app;
