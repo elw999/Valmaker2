@@ -1,0 +1,31 @@
+kind = "web"
+previewPath = "/"
+title = "瓦账号制图工坊"
+version = "1.0.0"
+id = "artifacts/skin-card-maker"
+router = "path"
+
+[[integratedSkills]]
+name = "react-vite"
+version = "1.0.0"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 23375
+
+[services.development]
+run = "pnpm --filter @workspace/skin-card-maker run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/skin-card-maker", "run", "build" ]
+publicDir = "artifacts/skin-card-maker/dist/public"
+serve = "static"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "23375"
+BASE_PATH = "/"
