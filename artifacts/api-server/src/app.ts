@@ -34,15 +34,14 @@ app.get("/api/health", (_req, res) => {
   res.status(200).send("OK");
 });
 
-// ✅ 託管前端靜態檔案（從 public 資料夾提供）
-app.use(express.static(path.join(__dirname, "public")));
+// ✅ 託管前端靜態檔案（從上一層的 public 資料夾提供）
+app.use(express.static(path.join(__dirname, "..", "public")));
 
 app.use("/api", router);
 
 // ✅ 所有非 /api 路徑都回傳前端入口頁（支援 React Router）
-// 使用 use 而非 get，避免 Express 5 path-to-regexp 報錯
 app.use((_req, res) => {
-  res.sendFile(path.join(__dirname, "public", "index.html"));
+  res.sendFile(path.join(__dirname, "..", "public", "index.html"));
 });
 
 export default app;
