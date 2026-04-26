@@ -40,8 +40,8 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use("/api", router);
 
 // ✅ 所有非 /api 路徑都回傳前端入口頁（支援 React Router）
-// Express 5 必須用 "/*" 而不是 "*"
-app.get("/*", (_req, res) => {
+// 使用 use 而非 get，避免 Express 5 path-to-regexp 報錯
+app.use((_req, res) => {
   res.sendFile(path.join(__dirname, "public", "index.html"));
 });
 
